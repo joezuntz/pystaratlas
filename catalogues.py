@@ -254,8 +254,8 @@ Byte-by-byte Description of file: names.dat
 			self.ngc.append(record)
 
 	def filter(self,ra0,dec0,ra1,dec1,mag=20):
-		#s=filter(lambda x:(x[2]>ra0 and x[2]<ra1) and  (x[3]>dec0 and x[3]<dec1 and len(x[6])>0),self.ngc)
-                s=filter(lambda x:(x[2]>ra0 and x[2]<=ra1) and  (x[3]>dec0 and x[3]<=dec1 ),self.ngc)
+		s=filter(lambda x:(x[2]>ra0 and x[2]<ra1) and  (x[3]>dec0 and x[3]<dec1 and len(x[6])>0),self.ngc)
+                #s=filter(lambda x:(x[2]>ra0 and x[2]<=ra1) and  (x[3]>dec0 and x[3]<=dec1 ),self.ngc)
 		return s
 
 
@@ -370,6 +370,7 @@ Byte-by-byte Description of file: table3.dat
 			record.append(r['BFD'][0:3])
 			try:
 				record.append(self.alphabet[r['BFD'][4:9]])
+				#print r['BFD'][4:9],self.alphabet[r['BFD'][4:9]]
 			except:
 				record.append('')
 			record.append(r['BFD'][10:12])
@@ -684,7 +685,7 @@ History:
 	stars=[]
 	IDs=set()
 	def __init__(self):
-		self.readfile("./HIP/hip2.dat")
+		self.readfile("./data/hip2.dat")
 		#self.IDs=set(map(lambda x:x[0],self.stars))
 		self.IDs=map(lambda x:x[0],self.stars)
 

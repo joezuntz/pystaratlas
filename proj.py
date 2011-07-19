@@ -156,7 +156,7 @@ class StarsMap:
 	scale=1
 	brocha=styles()
 	
-	def __init__(self,paper=landscape(A3),magLim=3.5,projection="merc",output='carta.pdf',costellation_list='',altaz=0,city='Madrid',date=ephem.now()):
+	def __init__(self,paper=landscape(A3),magLim=3.5,projection="merc",output='output/proj_output_example.pdf', costellation_list='', altaz=0, city='Madrid', date=ephem.now()):
 
 
 		self.paper=paper
@@ -321,13 +321,13 @@ class StarsMap:
 		self.c.setStrokeColor(Color( 0.,0., 0., alpha=1))
 		self.c.setFillColor(Color( 0,0,0, alpha=0.4))
 		self.c.setFont("arial", 2*fontscale)
-		stars=filter(lambda x:len(x[-2])!=0 and x[7] < mag,self.Cross.stars)
-		#print set(map(lambda x:x[-3],self.Cross.stars))
+		stars=filter(lambda x:len(x[-4])!=0 and x[7] < mag,self.Cross.stars)
+		#print set(map(lambda x:x[-4],self.Cross.stars))
 		for s in stars:
-			if len(s[-3])==0:
-				name=s[-4]+' '+s[-1]
+			if len(s[-2])<>0:
+				name=s[-2]
 			else:
-				name=s[-3]+' '+s[-1]
+				name=s[-4]
 			x,y=self.p(s[5],s[6])
 			self.c.drawString(x+1,y+1,name)
 	
@@ -619,7 +619,7 @@ class StarsMap:
 
 if __name__ == "__main__":
 
-	m=StarsMap(magLim=8,projection="moll +lat_0=42  +ellps=sphere +R=1.4",paper=landscape(A3),costellation_list='',city='Madrid',altaz=1,date=ephem.now()+ephem.hour*24*0+ephem.hour*7)
+	m=StarsMap(magLim=8,projection="moll +lat_0=42  +ellps=sphere +R=1",paper=landscape(A3),costellation_list='',city='Madrid',altaz=1,date=ephem.now()+ephem.hour*24*0+ephem.hour*7)
 	#m.observer.date=m.s.issNext() -ephem.minute
 	#m.update()
 
@@ -642,17 +642,17 @@ if __name__ == "__main__":
 	m.drawHorizontalGrid()
 #	m.drawComet('103P/Hartley',interval=10)
 	m.drawBodies()
-	m.drawNGC(m.n.filter(0,-90,360,90))
+	m.drawNGC(m.n.filter(0,-90,360,90,6))
 	m.drawCostellationsLimits()
 	m.drawCostellationsFigures()
 	m.drawEcuatorialGrid()
 	m.drawEcliptic()
-	m.starsNames(5)
-	s=m.H.filter(0,-90,360,90,plx=0)
+	m.starsNames(8)
+	s=m.H.filter(0,-90,360,90)
 	m.drawStars(s)
 	m.drawGalacticPlane()
 	m.drawGalacticGrid()
-#	m.drawISS()
+	m.drawISS()
 
 	m.close()
 
