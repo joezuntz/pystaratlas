@@ -1,6 +1,6 @@
 #!/usr/bin/python
 #-*- coding: iso-8859-15 -*-
-#NACHO MAS Y MARTA
+#NACHO MAS
 
 import sys, os, pyproj
 import datetime
