@@ -580,13 +580,13 @@ class StarsMap:
 		self.c.setStrokeColor(Color( 1,0.2, 0.7, alpha=0.2))
 		self.c.setFillColor(Color( 1,0.2, 0.7, alpha=0.8))
 		self.c.setLineWidth(0.5)
-		self.c.setFont("Helvetica", 2.5*fontscale)
+		self.c.setFont("Helvetica", 1.5*fontscale)
 		pos=self.s.cometOrbit(obj,self.observer.date,interval)
 		path=map(lambda x:(x[1],x[2]),pos)
 		self.drawLine(path)
 		i=0
 		for s in pos:
-			if i % 3 == 0:
+			if i % (interval/5) == 0:
 				name=s[0].strftime('%d-%m-%Y')
 				x,y=self.p(s[1],s[2])
 				self.c.drawString(x,y,name)		
@@ -610,7 +610,8 @@ class StarsMap:
 	def drawMarks(self,fichero):
 		self.c.setFont("Helvetica", 2.5*fontscale)
 		self.c.setFillColor(Color( 1,0.0, 0.0, alpha=0.4))
-		se=sesame.sesame(fichero)
+		se=sesame.sesame()
+		se.fromFile(fichero)
 		for o in se.obj_data:
 			x,y=self.p(o[1],o[2])
 			self.brocha.Mark(self.c,x,y)
@@ -619,7 +620,7 @@ class StarsMap:
 
 if __name__ == "__main__":
 
-	m=StarsMap(magLim=8,projection="moll +lat_0=42  +ellps=sphere +R=1",paper=landscape(A3),costellation_list='',city='Madrid',altaz=1,date=ephem.now()+ephem.hour*24*0+ephem.hour*7)
+	m=StarsMap(magLim=8,projection="moll +lat_0=42  +ellps=sphere +R=1",paper=landscape(A3),costellation_list='',city='Madrid',altaz=0,date=ephem.now()+ephem.hour*24*0+ephem.hour*0)
 	#m.observer.date=m.s.issNext() -ephem.minute
 	#m.update()
 
@@ -638,11 +639,12 @@ if __name__ == "__main__":
 	m.drawISS()
 	m.starsNames(4)
 """
-#	m.drawMarks("valladar22_1_2010.obj")
+#	m.drawMarks("skymaps.obj")
 	m.drawHorizontalGrid()
 #	m.drawComet('103P/Hartley',interval=10)
+	m.drawComet('C/2009 P1',interval=200)
 	m.drawBodies()
-	m.drawNGC(m.n.filter(0,-90,360,90,6))
+#	m.drawNGC(m.n.filter(0,-90,360,90,6))
 	m.drawCostellationsLimits()
 	m.drawCostellationsFigures()
 	m.drawEcuatorialGrid()
@@ -652,7 +654,7 @@ if __name__ == "__main__":
 	m.drawStars(s)
 	m.drawGalacticPlane()
 	m.drawGalacticGrid()
-	m.drawISS()
+#	m.drawISS()
 
 	m.close()
 

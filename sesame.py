@@ -113,6 +113,7 @@ class sesame:
 
 if __name__=='__main__':
 	se=sesame()
+	"""
 	s=18	
 	se.allSky(s)
 	N=(360/s)*(180/s)
@@ -121,12 +122,12 @@ if __name__=='__main__':
 		print res
 #	se.skyTile(4,289.147917,30.184500,prename=str(289.147917)+"_"+str(30.184500))
 
-	"""
-	se.fromFile("valladar22_1_2010.obj")
+"""
+	se.fromFile("obj_salida_grupoIO_23_7_2011.txt")
 	for o in se.obj_data:
 		se.skyMapImage(o)
-		se.toRGB565(o[0])
-"""
+
+
 
 
 
